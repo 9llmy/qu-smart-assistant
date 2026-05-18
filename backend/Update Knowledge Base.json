@@ -1,0 +1,219 @@
+{
+  "name": "Update Knowledge Base",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "qu-university",
+          "mode": "list",
+          "cachedResultName": "qu-university"
+        },
+        "embeddingBatchSize": 300,
+        "options": {
+          "clearNamespace": false,
+          "pineconeNamespace": "data*"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        -400
+      ],
+      "id": "23620f97-ede2-4a1d-95eb-8b87d2b714a5",
+      "name": "Pinecone Vector Store",
+      "notesInFlow": true,
+      "credentials": {
+        "pineconeApi": {
+          "id": "rsRr6gIgF3MGRXbn",
+          "name": "PineconeApi account"
+        }
+      },
+      "notes": "EN: Use Insert (new) or Upsert (update). Set namespace per batch (e.g., colleges_20250811_v1, courses_1445_v1).\n\nAR: استخدم Insert للجديد أو Upsert للتحديث. عيّن Namespace لكل دفعة (مثل colleges_20250811_v1، courses_1445_v1)."
+    },
+    {
+      "parameters": {
+        "textSplittingMode": "custom",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "fill",
+                "value": "={{ $json.name }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        432,
+        -224
+      ],
+      "id": "f610f89e-381b-4026-b2f2-d10b9ed04d55",
+      "name": "Default Data Loader",
+      "notesInFlow": true,
+      "notes": "EN: Converts binary → Document (+metadata like source=filename). Best with UTF-8 (BOM).\n\nAR: يحوّل الباينري إلى Document (+ميetadata مثل source=اسم_الملف). الأفضل UTF-8 (مع BOM)."
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        -96
+      ],
+      "id": "7d1a8935-2e40-42a6-a28e-64e27d4f05bc",
+      "name": "Embeddings OpenAI",
+      "notesInFlow": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "HxUhPq8uefJlylF7",
+          "name": "OpenAi account 2"
+        }
+      },
+      "notes": "EN: Creates embeddings. Ensure API key + model; dimension must match Pinecone index.\n\nAR: يُولّد embeddings. تأكّد من المفتاح والنموذج؛ الأبعاد تطابق فهرس Pinecone."
+    },
+    {
+      "parameters": {
+        "chunkSize": 1700,
+        "chunkOverlap": 100,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -64
+      ],
+      "id": "f099bdf4-076a-45a5-a7a1-ce9ea6687309",
+      "name": "Recursive Character Text Splitter",
+      "notesInFlow": true,
+      "notes": "EN: Set before upload — Colleges: 1700/100; Activities/Courses: 300/50.\n\nAR: اضبط قبل الرفع — الكليات: 1700/100؛ الأنشطة/الدورات: 300/50."
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -272
+      ],
+      "id": "92d330f0-a199-4368-802c-fbfc802ecdf7",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": "mimeType = 'application/json' and '1LeurVsZoIbO4sa_t1TVUunB2D5y6eda5' in parents",
+        "limit": 20,
+        "filter": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        32,
+        -400
+      ],
+      "id": "f61098be-4587-481e-8022-58c778bf339b",
+      "name": "Search files and folders",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "UHEXqkM5jESNzT8H",
+          "name": "Google Drive OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "9413b119-fee9-4bdc-b651-b08b70614a01",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b0e79977e7f4847844c9fd2712fee82a6ee08982e93b6bde08496168a371fb2e"
+  },
+  "id": "nXKZHb3nPz6Ti16J",
+  "tags": [
+    {
+      "updatedAt": "2026-03-05T02:54:26.679Z",
+      "createdAt": "2026-03-05T02:54:26.679Z",
+      "id": "S704K74NVeMwy3gj",
+      "name": "CS"
+    },
+    {
+      "updatedAt": "2026-03-17T20:00:54.020Z",
+      "createdAt": "2026-03-17T20:00:54.020Z",
+      "id": "jobxu9SmddepfTNJ",
+      "name": "Main"
+    }
+  ]
+}
