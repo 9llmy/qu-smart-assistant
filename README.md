@@ -4,14 +4,19 @@
 
 ### AI-Powered Bilingual Chatbot for Qassim University Students
 
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-brightgreen?style=for-the-badge)](https://qu-smart-assistant.vercel.app)
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![n8n](https://img.shields.io/badge/n8n-Workflow-EA4B71?logo=n8n)](https://n8n.io/)
 [![Pinecone](https://img.shields.io/badge/Pinecone-Vector_DB-00C896)](https://www.pinecone.io/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o-412991?logo=openai)](https://openai.com/)
+[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel)](https://qu-smart-assistant.vercel.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **A graduation project from Qassim University - College of Computer**
+
+### 🚀 [Try the Live Demo →](https://qu-smart-assistant.vercel.app)
 
 </div>
 
@@ -22,6 +27,8 @@
 QU Smart Assistant is an intelligent AI-powered chatbot designed specifically for Qassim University students. It leverages **Retrieval-Augmented Generation (RAG)** to answer questions about admissions, colleges, medical city services, research, and university administration in both **Arabic and English**.
 
 **Built with modern technologies and a knowledge base of 8,577+ vectorized documents from official university sources.**
+
+🔗 **Live Demo:** [https://qu-smart-assistant.vercel.app](https://qu-smart-assistant.vercel.app)
 
 ---
 
@@ -88,6 +95,10 @@ Next.js UI ──▶ n8n Webhook ──▶ AI Agent (GPT-4o-mini)
 - **Python** — Bulk data uploader script
 - **OpenAI SDK** — Embedding generation
 
+### Deployment
+- **Vercel** — Frontend hosting & CDN
+- **n8n Cloud** — Backend workflows
+
 ---
 
 ## 📂 Project Structure
@@ -125,7 +136,7 @@ qu-smart-assistant/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/qu-smart-assistant.git
+git clone https://github.com/9llmy/qu-smart-assistant.git
 cd qu-smart-assistant
 ```
 
@@ -156,7 +167,7 @@ python pinecone_uploader.py
 
 | Name | ID | Role |
 |------|------|------|
-| **Suliman Al-Ghofaili** ⭐ | 421109766 | **Team Lead** — Backend/AI - Frontend/UI |
+| **Suliman Al-Ghofaili** ⭐ | 421109766 | **Team Lead** — Backend/AI |
 | Rayan Al-Harbi | 421109529 | Frontend/UI |
 | Khalifah Al-Khalifah | 431109692 | Data Pipeline |
 | Faris Al-Awaji | 431109338 | Data Pipeline |
@@ -197,6 +208,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ by the QU Smart Assistant Team**
 
-[🌐 Qassim University](https://www.qu.edu.sa)
+[🌐 Live Demo](https://qu-smart-assistant.vercel.app) • [📦 GitHub](https://github.com/9llmy/qu-smart-assistant) • [🏛️ Qassim University](https://www.qu.edu.sa)
 
 </div>
