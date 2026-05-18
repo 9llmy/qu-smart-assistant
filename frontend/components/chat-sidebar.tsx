@@ -307,24 +307,26 @@ export function ChatSidebar({
               )}
             </div>
 
-            {/* Footer Buttons */}
-<div className="p-3 border-t border-sidebar-border space-y-1">
-  <Button
-    variant="ghost"
-    onClick={onOpenSettings}
-    className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-  >
-    <Settings className="w-5 h-5" />
-    {t('settings')}
-  </Button>
-
+  {/* Footer Buttons */}
+<div className="p-3 border-t border-sidebar-border space-y-1 shrink-0">
   <Button
     variant="ghost"
     onClick={onOpenAbout}
     className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+    size="sm"
   >
-    <Info className="w-5 h-5" />
-    {t('about')}
+    <Info className="w-4 h-4 shrink-0" />
+    <span className="text-sm">{t('about')}</span>
+  </Button>
+
+  <Button
+    variant="ghost"
+    onClick={onOpenSettings}
+    className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+    size="sm"
+  >
+    <Settings className="w-4 h-4 shrink-0" />
+    <span className="text-sm">{t('settings')}</span>
   </Button>
 </div>
           </motion.aside>
