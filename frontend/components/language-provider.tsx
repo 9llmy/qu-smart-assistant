@@ -208,8 +208,8 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en')
-  const [resolvedLanguage, setResolvedLanguage] = useState<ResolvedLanguage>('en')
+const [language, setLanguageState] = useState<Language>('ar')
+  const [resolvedLanguage, setResolvedLanguage] = useState<ResolvedLanguage>('ar')
 
   // Resolve language (handle 'system' option)
   const resolveLanguage = (lang: Language): ResolvedLanguage => {
