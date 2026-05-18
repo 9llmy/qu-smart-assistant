@@ -84,6 +84,8 @@ const translations = {
     'english': 'English',
     'arabic': 'العربية',
     'computerScience': 'Computer Science',
+    'guestUser':         'Guest User',
+    'qassimUniversity':  'Qassim University',   
     
     // Chat
     'typeMessage': 'Type your message...',
@@ -134,6 +136,7 @@ const translations = {
     'libraryServicesDesc': 'الوصول للموارد الرقمية والكتب',
     'campusServices': 'خدمات الحرم الجامعي',
     'campusServicesDesc': 'ابحث عن المرافق والدعم',
+    
     // New Quick Actions
     'medicalCity':        'المدينة الطبية',
     'medicalCityDesc':    'خدمات المستشفى الجامعي والعيادات',
@@ -172,7 +175,9 @@ const translations = {
     'english': 'English',
     'arabic': 'العربية',
     'computerScience': 'علوم الحاسب',
-    
+    'guestUser':         'مستخدم',
+    'qassimUniversity':  'جامعة القصيم',
+
     // Chat
     'typeMessage': 'اكتب رسالتك...',
     'send': 'إرسال',

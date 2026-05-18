@@ -71,15 +71,16 @@ export function SettingsModal({
               <h3 className="font-medium text-foreground">{t('profile')}</h3>
             </div>
             <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/50">
-              <Avatar className="w-14 h-14 bg-primary">
-                <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
-                  R
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-semibold text-foreground">Rayan</p>
-                <p className="text-sm text-muted-foreground">{t('computerScience')}</p>
-              </div>
+  <Avatar className="w-14 h-14 bg-primary">
+    <AvatarFallback className="bg-primary text-primary-foreground">
+      <User className="w-6 h-6" />
+    </AvatarFallback>
+  </Avatar>
+  <div>
+    <p className="font-semibold text-foreground">{t('guestUser')}</p>
+    <p className="text-sm text-muted-foreground">{t('qassimUniversity')}</p>
+    </div>
+
             </div>
           </section>
 
