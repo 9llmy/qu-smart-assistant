@@ -6,13 +6,14 @@ import { User, Bot, ThumbsUp, ThumbsDown, Copy, Check } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Message, getMessageDirection, detectMessageLanguage } from '@/lib/chat-store'
 import { cn } from '@/lib/utils'
+import { sendFeedback } from '@/lib/feedback-service'
 
 interface ChatMessagesProps {
   messages: Message[]
   isLoading?: boolean
 }
 
-function MessageActions({ messageId, content, isRtl }: { messageId: string; content: string; isRtl: boolean }) {
+function MessageActions({ messageId, content, question, language, isRtl }: { messageId: string; content: string; question: string; language: string; isRtl: boolean }) {
   const [rating, setRating] = useState<'up' | 'down' | null>(null)
   const [copied, setCopied] = useState(false)
 
@@ -26,6 +27,13 @@ function MessageActions({ messageId, content, isRtl }: { messageId: string; cont
     setRating(newRating)
     if (newRating) {
       localStorage.setItem(`qu-rating-${messageId}`, newRating)
+      // أرسل الـ feedback لـ n8n
+      sendFeedback({
+        question,
+        answer: content,
+        rating: newRating,
+        language,
+      })
     } else {
       localStorage.removeItem(`qu-rating-${messageId}`)
     }
@@ -199,13 +207,15 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
                   })}
                 </p>
 
-                {message.role === 'assistant' && (
-                  <MessageActions
-                    messageId={message.id}
-                    content={message.content}
-                    isRtl={isRtl}
-                  />
-                )}
+               {message.role === 'assistant' && (
+  <MessageActions
+    messageId={message.id}
+    content={message.content}
+    question={index > 0 ? messages[index - 1].content : ''}
+    language={msgLang}
+    isRtl={isRtl}
+  />
+)}
               </div>
             </motion.div>
           )
