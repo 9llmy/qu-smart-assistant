@@ -40,6 +40,7 @@ QU Smart Assistant is an intelligent AI-powered chatbot designed specifically fo
 - 🎨 **Modern UI** — Built with Next.js 16, Tailwind CSS, and shadcn/ui
 - 🌗 **Dark/Light Themes** — User preference with system detection
 - 👍 **Message Ratings** — Thumbs up/down feedback per response
+- 🔄 **Continuous Improvement** — User feedback logged to Google Sheets for accuracy enhancement
 - 💬 **Smart Suggestions** — Quick chips and action cards
 - 🔗 **Quick Links** — Direct access to MyQU, LMS, and university services
 - 📱 **Mobile Responsive** — Works on all device sizes
@@ -70,6 +71,24 @@ Next.js UI ──▶ n8n Webhook ──▶ AI Agent (GPT-4o-mini)
                    Pinecone Vector       OpenAI Embeddings
                    (8,577 vectors)       (text-3-small)
 ```
+
+---
+
+## 🔄 Continuous Improvement System
+
+A human-in-the-loop feedback mechanism that continuously improves the bot's accuracy:
+
+```
+User rates answer (👍/👎) ──▶ n8n Feedback Webhook ──▶ Google Sheets
+                                                            │
+                                                            ▼
+                                            Team reviews flagged answers
+                                                            │
+                                                            ▼
+                                          Improved content uploaded to Pinecone
+```
+
+Every thumbs-down response is automatically logged with the question, answer, rating, and language — allowing the team to identify gaps in the knowledge base and refine the bot over time.
 
 ---
 
@@ -113,7 +132,8 @@ qu-smart-assistant/
 │
 ├── backend/              # n8n workflows
 │   ├── qu-chat-agent.json
-│   └── qu-indexer.json
+│   ├── qu-indexer.json
+│   └── qu-feedback-logger.json
 │
 ├── data-pipeline/        # Python scripts
 │   ├── pinecone_uploader.py
